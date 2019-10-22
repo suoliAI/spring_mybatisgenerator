@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.gnnt.mybatisgenerator.mapper.CompanyMapperExt">
+    <resultMap id="BaseResultMap" type="com.gnnt.mybatisgenerator.model.Company">
+        <id column="id" jdbcType="INTEGER" property="id" />
+        <result column="code" jdbcType="VARCHAR" property="code" />
+        <result column="name" jdbcType="VARCHAR" property="name" />
+        <result column="address" jdbcType="VARCHAR" property="address" />
+        <result column="owner" jdbcType="VARCHAR" property="owner" />
+        <result column="money" jdbcType="DOUBLE" property="money" />
+    </resultMap>
+    <sql id="Base_Column_List">
+    id, code, name, address, owner, money
+    </sql>
+    <select id="queryCompanyList" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from tb_company
+    </select>
+</mapper>

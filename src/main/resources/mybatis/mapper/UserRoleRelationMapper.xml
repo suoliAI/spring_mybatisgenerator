@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.gnnt.mybatisgenerator.mapper.UserRoleRelationMapper">
+    <!--查询一个用户下所有的角色-->
+    <resultMap id="allRole" type="com.gnnt.mybatisgenerator.model.Role">
+        <result column="id" property="id"/>
+        <result column="name" property="name"/>
+    </resultMap>
+    <select id="selectRoleByUserId" parameterType="Integer" resultMap="allRole">
+        select tbr.*, tburr.user_id from tb_role tbr inner join tb_user_role_relation tburr
+        on  tbr.id = tburr.role_id
+        where tburr.user_id = #{id}
+    </select>
+
+    <!--查询一个角色下的所有用户-->
+    <resultMap id="allUser" type="com.gnnt.mybatisgenerator.model.User">
+        <result column="id" property="id"/>
+        <result column="name" property="name"/>
+        <result column="password" property="password"/>
+    </resultMap>
+    <select id="selectUserByRoleId" parameterType="Integer" resultMap="allUser">
+        select tbr.*, tburr.role_id from tb_user tbr inner join tb_user_role_relation tburr
+        on  tbr.id = tburr.user_id
+        where tburr.role_id = #{id}
+    </select>
+</mapper>

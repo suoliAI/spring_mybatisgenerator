@@ -1,9 +1,11 @@
 package com.gnnt.mybatisgenerator;
 
-import com.gnnt.mybatisgenerator.mapper.CompanyMapper;
-import com.gnnt.mybatisgenerator.mapper.PersonMapper;
+
+import com.gnnt.mybatisgenerator.mapper.*;
 import com.gnnt.mybatisgenerator.model.Company;
 import com.gnnt.mybatisgenerator.model.CompanyCriteria;
+import com.gnnt.mybatisgenerator.model.RoleExt;
+import com.gnnt.mybatisgenerator.model.UserExt;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -16,6 +18,15 @@ class MybatisGeneratorApplicationTests {
 
     @Autowired
     private CompanyMapper companyMapper;
+
+    @Autowired
+    private CompanyMapperExt companyMapperExt;
+
+    @Autowired
+    private UserMapperExt userMapperExt;
+
+    @Autowired
+    private RoleMapperExt roleMapperExt;
 
     @Autowired
     private PersonMapper personMapper;
@@ -42,5 +53,23 @@ class MybatisGeneratorApplicationTests {
         List<Company> companies = companyMapper.selectByExample(criteria);
         System.out.println("查询结果："+companies.toString());
     }
+    @Test
+    void test_pageHelper(){
+        List<Company> list= companyMapperExt.queryCompanyList();
 
+
+    }
+
+    @Test
+    void test_ManytoMany(){
+        UserExt userExt = userMapperExt.selectById(1);
+        System.out.println(userExt.toString());
+        System.out.println(userExt.getRoles().toString());
+    }
+    @Test
+    void test_ManytoMany2(){
+        RoleExt roleExt = roleMapperExt.selectById(1);
+        System.out.println(roleExt.toString());
+        System.out.println(roleExt.getPermissions().toString());
+    }
 }

@@ -82,16 +82,25 @@
         </javaClientGenerator>
 
         <!--需要生成的代码对应的表名-->
-        <table tableName="tb_employee" domainObjectName="Employee">
+        <!--<table tableName="tb_employee" domainObjectName="Employee">-->
+            <!--<generatedKey column="id" sqlStatement="MySql" identity="true"/>-->
+        <!--</table>-->
+        <!--<table tableName="tb_dept" domainObjectName="Dept">-->
+            <!--<generatedKey column="id" sqlStatement="MySql" identity="true"/>-->
+        <!--</table>-->
+        <!--<table tableName="tb_company" domainObjectName="Company">-->
+            <!--<generatedKey column="id" sqlStatement="MySql" identity="true"/>-->
+        <!--</table>-->
+        <!--<table tableName="tb_person_info" domainObjectName="Person">-->
+            <!--<generatedKey column="id" sqlStatement="MySql" identity="true"/>-->
+        <!--</table>-->
+        <table tableName="tb_user" domainObjectName="User">
             <generatedKey column="id" sqlStatement="MySql" identity="true"/>
         </table>
-        <table tableName="tb_dept" domainObjectName="Dept">
+        <table tableName="tb_permission" domainObjectName="Permission">
             <generatedKey column="id" sqlStatement="MySql" identity="true"/>
         </table>
-        <table tableName="tb_company" domainObjectName="Company">
-            <generatedKey column="id" sqlStatement="MySql" identity="true"/>
-        </table>
-        <table tableName="tb_person_info" domainObjectName="Person">
+        <table tableName="tb_role" domainObjectName="Role">
             <generatedKey column="id" sqlStatement="MySql" identity="true"/>
         </table>
     </context>
