@@ -1,23 +1,20 @@
 package com.gnnt.mybatisgenerator.untils;
 
-import com.gnnt.mybatisgenerator.config.shiro.ShiroEncryptionPorperties;
+import com.gnnt.mybatisgenerator.config.shiro.ShiroPorperties;
 import lombok.extern.slf4j.Slf4j;
-import org.apache.shiro.crypto.UnknownAlgorithmException;
 import org.apache.shiro.crypto.hash.SimpleHash;
 import org.springframework.beans.BeansException;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.ApplicationContextAware;
 import org.springframework.stereotype.Component;
-import org.springframework.transaction.PlatformTransactionManager;
 
-import java.security.MessageDigest;
-import java.security.NoSuchAlgorithmException;
+
 
 @Slf4j
 @Component
 public class ShiroEncryption implements ApplicationContextAware {
 
-    private static ShiroEncryptionPorperties shiroEncryptionPorperties;
+    private static ShiroPorperties shiroEncryptionPorperties;
     /***
      * 对用户的密码进行MD5加密
      * 做成工具类
@@ -27,9 +24,9 @@ public class ShiroEncryption implements ApplicationContextAware {
         // shiro 自带的工具类生成salt
         //String salt = new SecureRandomNumberGenerator().nextBytes().toString();
         // 加密次数
-        int times = shiroEncryptionPorperties.getEncodeNum();
+        int times = shiroEncryptionPorperties.getTimes();
         // 算法名称
-        String algorithmName = shiroEncryptionPorperties.getEncodeWay();
+        String algorithmName = shiroEncryptionPorperties.getAlgorithmName();
 
         log.info("加密方式[{}], 加密次数[{}]",algorithmName,times);
 
@@ -38,11 +35,11 @@ public class ShiroEncryption implements ApplicationContextAware {
         return encodedPassword;
     }
 
-    public ShiroEncryptionPorperties getShiroEncryptionPorperties() {
+    public ShiroPorperties getShiroEncryptionPorperties() {
         return shiroEncryptionPorperties;
     }
 
-    public void setShiroEncryptionPorperties(ShiroEncryptionPorperties shiroEncryptionPorperties) {
+    public void setShiroEncryptionPorperties(ShiroPorperties shiroEncryptionPorperties) {
         this.shiroEncryptionPorperties = shiroEncryptionPorperties;
     }
 
@@ -50,8 +47,8 @@ public class ShiroEncryption implements ApplicationContextAware {
 
     @Override
     public void setApplicationContext(ApplicationContext applicationContext) throws BeansException {
-        PlatformTransactionManager bean = applicationContext.getBean(PlatformTransactionManager.class);
-        log.info("事务管理器[{}]",bean.getClass().getName());
-        this.setShiroEncryptionPorperties(applicationContext.getBean(ShiroEncryptionPorperties.class));
+        ShiroPorperties shiroProperties = applicationContext.getBean(ShiroPorperties.class);
+        log.info("shiroProperties配置类属性[{}]",shiroProperties);
+        this.setShiroEncryptionPorperties(shiroProperties);
     }
 }

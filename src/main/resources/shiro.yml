@@ -1,0 +1,5 @@
+shiro:
+  algorithmName: md5
+  times: 2
+  globalSessionTimeout: 60000 #session有效时长（毫秒）
+  rememberCookieAge: 180     #记住我时长（秒）

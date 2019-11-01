@@ -2,14 +2,14 @@ package com.gnnt.mybatisgenerator;
 
 
 import com.gnnt.mybatisgenerator.mapper.*;
-import com.gnnt.mybatisgenerator.model.Company;
-import com.gnnt.mybatisgenerator.model.CompanyCriteria;
-import com.gnnt.mybatisgenerator.model.RoleExt;
-import com.gnnt.mybatisgenerator.model.UserExt;
+import com.gnnt.mybatisgenerator.model.*;
+import com.gnnt.mybatisgenerator.service.ICompanyService;
+import com.gnnt.mybatisgenerator.service.IUserService;
 import com.gnnt.mybatisgenerator.untils.ShiroEncryption;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 import java.util.UUID;
@@ -31,6 +31,12 @@ class MybatisGeneratorApplicationTests {
 
     @Autowired
     private PersonMapper personMapper;
+
+    @Autowired
+    private IUserService userService;
+
+    @Autowired
+    private ICompanyService companyService;
     @Test
     void contextLoads() {
     }
@@ -78,4 +84,15 @@ class MybatisGeneratorApplicationTests {
         System.out.println(ShiroEncryption.shiroEncryption("123456", UUID.randomUUID().toString()));
         System.out.println( UUID.randomUUID().toString());
     }
+    @Test
+    void test_transaction(){
+        User user = new User();
+        user.setId(1);
+        user.setName("admin20");
+        user.setSalt(UUID.randomUUID().toString());
+        user.setPassword("123456789");
+        userService.update(user);
+    }
+
+
 }

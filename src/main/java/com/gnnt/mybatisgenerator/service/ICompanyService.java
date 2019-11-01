@@ -7,4 +7,5 @@ import java.util.List;
 public interface ICompanyService {
 
     abstract List<Company> queryAll();
+    void add(Company company);
 }

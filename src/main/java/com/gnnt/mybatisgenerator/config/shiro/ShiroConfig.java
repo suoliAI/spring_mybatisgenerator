@@ -15,7 +15,6 @@ import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
-import javax.servlet.Filter;
 import java.util.Base64;
 import java.util.HashMap;
 import java.util.Map;
@@ -23,7 +22,7 @@ import java.util.Map;
 @Configuration
 public class ShiroConfig {
     @Autowired
-    private ShiroEncryptionPorperties shiroEncryptionPorperties;
+    private ShiroPorperties shiroPorperties;
 
 
     //将自己的验证方式加入容器
@@ -40,12 +39,12 @@ public class ShiroConfig {
      */
     @Bean
     public HashedCredentialsMatcher hashedCredentialsMatcher(){
-        log.info("properties[{}]",shiroEncryptionPorperties.toString());
+        log.info("properties[{}]", shiroPorperties.toString());
         HashedCredentialsMatcher hashedCredentialsMatcher = new HashedCredentialsMatcher();
         // 使用md5 算法进行加密
-        hashedCredentialsMatcher.setHashAlgorithmName(shiroEncryptionPorperties.getEncodeWay());
+        hashedCredentialsMatcher.setHashAlgorithmName(shiroPorperties.getAlgorithmName());
         // 设置散列次数： 意为加密几次
-        hashedCredentialsMatcher.setHashIterations(shiroEncryptionPorperties.getEncodeNum());
+        hashedCredentialsMatcher.setHashIterations(shiroPorperties.getTimes());
 
         return hashedCredentialsMatcher;
     }
@@ -58,7 +57,7 @@ public class ShiroConfig {
     public DefaultWebSessionManager sessionManager() {
         DefaultWebSessionManager sessionManager = new DefaultWebSessionManager();
         // 设置session过期时间10分钟
-        sessionManager.setGlobalSessionTimeout(60000L);
+        sessionManager.setGlobalSessionTimeout(shiroPorperties.getGlobalSessionTimeout());
         sessionManager.setSessionIdCookie(new SimpleCookie("userID"));
         return sessionManager;
     }
@@ -71,7 +70,7 @@ public class ShiroConfig {
         CookieRememberMeManager cookieRememberMeManager = new CookieRememberMeManager();
         SimpleCookie simpleCookie = new SimpleCookie("rememberMe");
 
-        simpleCookie.setMaxAge(3*60);
+        simpleCookie.setMaxAge(shiroPorperties.getRememberCookieAge());
         //设置只允许http访问
         simpleCookie.setHttpOnly(true);
         //simpleCookie.setDomain("");

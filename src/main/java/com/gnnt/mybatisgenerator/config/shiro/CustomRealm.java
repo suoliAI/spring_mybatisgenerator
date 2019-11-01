@@ -13,12 +13,23 @@ import org.apache.shiro.realm.AuthorizingRealm;
 import org.apache.shiro.subject.PrincipalCollection;
 import org.apache.shiro.util.ByteSource;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.ApplicationListener;
+import org.springframework.context.event.ApplicationContextEvent;
+import org.springframework.context.event.ContextRefreshedEvent;
 
 @Slf4j
-public class CustomRealm extends AuthorizingRealm {
+public class CustomRealm extends AuthorizingRealm{
 
-    @Autowired
     private IUserService userService;
+
+    public IUserService getUserService() {
+        return userService;
+    }
+
+    public void setUserService(IUserService userService) {
+        this.userService = userService;
+    }
+
     /**
      * 授权，即角色或者权限验证
      * @param principalCollection

@@ -43,10 +43,11 @@ public class UserServiceImpl implements IUserService {
         userMapper.insert(user);
     }
 
-    @Transactional()
+    @Transactional(rollbackFor = Exception.class)
     @Override
     public int update(User user){
         int result = userMapper.updateByPrimaryKey(user);
-        throw new RuntimeException("用户ID为空");
+        int a = 1/0;
+        return result;
     }
 }
