@@ -6,6 +6,7 @@ import com.gnnt.mybatisgenerator.model.Company;
 import com.gnnt.mybatisgenerator.model.CompanyCriteria;
 import com.gnnt.mybatisgenerator.model.RoleExt;
 import com.gnnt.mybatisgenerator.model.UserExt;
+import com.gnnt.mybatisgenerator.untils.ShiroEncryption;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -71,5 +72,10 @@ class MybatisGeneratorApplicationTests {
         RoleExt roleExt = roleMapperExt.selectById(1);
         System.out.println(roleExt.toString());
         System.out.println(roleExt.getPermissions().toString());
+    }
+    @Test
+    void test_shiro(){
+        System.out.println(ShiroEncryption.shiroEncryption("123456", UUID.randomUUID().toString()));
+        System.out.println( UUID.randomUUID().toString());
     }
 }

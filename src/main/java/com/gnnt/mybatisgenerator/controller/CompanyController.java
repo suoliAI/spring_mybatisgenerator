@@ -2,6 +2,7 @@ package com.gnnt.mybatisgenerator.controller;
 
 import com.gnnt.mybatisgenerator.model.Company;
 import com.gnnt.mybatisgenerator.response.BaseResponse;
+import com.gnnt.mybatisgenerator.response.DataResponse;
 import com.gnnt.mybatisgenerator.service.ICompanyService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -18,9 +19,9 @@ public class CompanyController {
 
     @RequestMapping("/queryAll")
     @ResponseBody
-    public BaseResponse queryAll(){
+    public DataResponse queryAll(){
         List<Company> list = companyService.queryAll();
-       return  BaseResponse.buildSuccess(list);
+       return  DataResponse.buildSuccess(list);
     }
     @RequestMapping("/test")
     @ResponseBody
